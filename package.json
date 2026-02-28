@@ -1,0 +1,11 @@
+{
+  "name": "callagames.marco-calandro.simple-combat-system",
+  "version": "0.1.0",
+  "description": "This package provide a framework to build a simple combat system. It provide the basic tools to have a working system but is open to extension.",
+  "displayName": "Simple Combat System",
+  "unity": "6000.0",
+  "author": {
+    "name": "Marco Calandro",
+    "email": "marco.calandro@mensa.it"
+  }
+}
