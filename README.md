@@ -1,6 +1,6 @@
 
 ![Engine: Unity 6](https://img.shields.io/badge/Engine-Unity%206-000000)
-![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-green)
+![Version: 1.0.0](https://img.shields.io/badge/Version-0.1.0-green)
 
 # Simple Combat System for Unity
 A lightweight, extensible, and highly customizable turn‑based combat system designed for Unity projects.
