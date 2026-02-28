@@ -20,3 +20,7 @@ More details can be found in the following sections:
     - [Rules](pillars/rules.md)
 - Commons
     - [Health](commons/health.md)
+
+## Combat Rules
+The implementaiton of the set of actions, rules, and entities' properties, defines how the combat system works. The features of the resulting combat systems is described for each version of the library in the following sections:
+- [Combat Rules v0.1.0](features/combat-rules-v0.1.0.md)

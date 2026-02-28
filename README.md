@@ -2,7 +2,7 @@
 ![Engine: Unity 6](https://img.shields.io/badge/Engine-Unity%206-000000)
 ![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-green)
 
-# Simple Combat System Library for Unity
+# Simple Combat System for Unity
 A lightweight, extensible, and highly customizable turn‑based combat system designed for Unity projects.
 This library provides a clean architecture built around three core pillars—Entities, Actions, and Rules—plus a set of shared Commons utilities such as Health management.
 
@@ -15,7 +15,6 @@ Its goal is to offer a flexible foundation that teams can adapt to different gam
 - Extensible rule validation system with detailed violation reporting
 - Flexible health model supporting multiple health pools (e.g., HP, armor, magical armor)
 - Designed for team‑based, turn‑based combat (but flexible and generic)
-
 
 ## Architecture Overview
 The system is structured around three main pillars:
