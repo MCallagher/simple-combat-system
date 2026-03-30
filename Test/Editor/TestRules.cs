@@ -2,6 +2,7 @@
 using SimpleCombatSystem;
 using System.Collections.Generic;
 using NUnit.Framework;
+using System;
 
 namespace SimpleCombatSystem.Test
 {
@@ -20,11 +21,16 @@ namespace SimpleCombatSystem.Test
 
             Rule rule = new AttackRule();
             SimpleCombatSystem.Action action = new AttackAction(new List<object>() { atk, def });
+            SimpleCombatSystem.Action action2 = new AttackAction(new List<object>() { atk, atk });
 
             // Valid
             atkTeam.AddStatus(TeamStatus.InTurn);
             Assert.True(rule.IsSatisfied(action));
             Assert.IsEmpty(rule.GetViolations(action));
+
+            // Invalid | Friendly fire
+            Assert.False(rule.IsSatisfied(action2));
+            Assert.AreEqual(1, rule.GetViolations(action2).Count);
 
             int expectedViolations = 1;
 
