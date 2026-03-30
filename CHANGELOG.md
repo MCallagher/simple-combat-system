@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.1.1 - Friendly fire rule
+Changes:
+- Add friendly fire rule
+
 ## v0.1.0 - First version
 First version of the combat system with limited features.
 

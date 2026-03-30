@@ -21,6 +21,7 @@ namespace SimpleCombatSystem
                     violations.AddRange(RuleComponents.IsAlreadyDead(atkFighter));
                     violations.AddRange(RuleComponents.IsAlreadyDead(defFighter));
                     violations.AddRange(RuleComponents.CanFighterAct(atkFighter));
+                    violations.AddRange(RuleComponents.AreInDifferentTeams(atkFighter, defFighter));
                 }
             }
             return violations;

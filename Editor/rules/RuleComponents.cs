@@ -52,7 +52,16 @@ namespace SimpleCombatSystem
                 teamB.HasStatus(TeamStatus.InTurn)
             )
             {
-                return new(){new TurnAlreadyStartedViolation()};
+                return new() { new TurnAlreadyStartedViolation() };
+            }
+            return new();
+        }
+
+        public static List<Violation> AreInDifferentTeams(IFighter fighterA, IFighter fighterB)
+        {
+            if (fighterA.GetTeam() == fighterB.GetTeam())
+            {
+                return new() { new SameTeamViolation() };
             }
             return new();
         }
