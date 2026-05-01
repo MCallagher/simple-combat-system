@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.0 - Rest action
+Changes:
+- Add rest action
+
 ## v0.1.1 - Friendly fire rule
 Changes:
 - Add friendly fire rule
