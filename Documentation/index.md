@@ -26,3 +26,4 @@ The implementaiton of the set of actions, rules, and entities' properties, defin
 - [Combat Rules v0.1.0](features/combat-rules-v0.1.0.md)
 - [Combat Rules v0.1.1](features/combat-rules-v0.1.1.md)
 - [Combat Rules v0.2.0](features/combat-rules-v0.2.0.md)
+- [Combat Rules v0.2.1](features/combat-rules-v0.2.1.md)
