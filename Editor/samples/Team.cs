@@ -68,5 +68,10 @@ namespace SimpleCombatSystem
         {
             statuses.Remove(status);
         }
+
+        public List<TeamStatus> GetStatuses()
+        {
+            return new (statuses);
+        }
     }
 }

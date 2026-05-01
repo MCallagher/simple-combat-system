@@ -69,6 +69,11 @@ namespace SimpleCombatSystem
             statuses.Remove(status);
         }
 
+        public List<FighterStatus> GetStatuses()
+        {
+            return new (statuses);
+        }
+
         // IHasHealth
         public HitPoints GetHealth()
         {
