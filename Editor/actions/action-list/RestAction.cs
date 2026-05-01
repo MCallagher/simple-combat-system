@@ -13,6 +13,9 @@ namespace SimpleCombatSystem
 
             // Perform action
             rester.Rest();
+
+            // Update status
+            rester.AddStatus(FighterStatus.Rested);
         }
     }
 }

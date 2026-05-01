@@ -1,4 +1,4 @@
-# Combat Rules for v0.2.0
+# Combat Rules for v0.2.1
 
 ## Basic mechanics
 
@@ -16,6 +16,3 @@
 | Team | A team can take the initiative and start the fight | Only in the first turn of the fight |
 | Team | A team can pass turn | |
 | Fighter | A fighter can rest | The team must have at least another fighter that is active (not dead nor resting), only one fighter can rest per turn per team |
-
-## Notes
-Known bug. The status does not update when resting.

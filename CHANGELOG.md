@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.1 - Bug fix rest action
+Changes:
+- Fix bug on status management in rest action
+
 ## v0.2.0 - Rest action
 Changes:
 - Add rest action
