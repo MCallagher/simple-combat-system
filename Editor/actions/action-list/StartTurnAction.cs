@@ -12,6 +12,7 @@ namespace SimpleCombatSystem
             ITeam starting = team1;
             ITeam other = team2;
 
+            // Update status
             starting.AddStatus(TeamStatus.InTurn);
         }
     }
