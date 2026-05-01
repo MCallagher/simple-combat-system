@@ -62,6 +62,12 @@ namespace SimpleCombatSystem.Test
             atk.AddStatus(FighterStatus.Attacked);
             Assert.False(rule.IsSatisfied(action));
             Assert.AreEqual(expectedViolations, rule.GetViolations(action).Count);
+            expectedViolations += 1;
+
+            // Invalid | + Resting defender
+            def.AddStatus(FighterStatus.Rested);
+            Assert.False(rule.IsSatisfied(action));
+            Assert.AreEqual(expectedViolations, rule.GetViolations(action).Count);
         }
 
         [Test]
@@ -125,9 +131,11 @@ namespace SimpleCombatSystem.Test
         {
             Fighter fighter1 = new Fighter("fighter1", new HitPoints(10));
             Fighter fighter2 = new Fighter("fighter2", new HitPoints(10));
+            Fighter fighter3 = new Fighter("fighter3", new HitPoints(10));
             Team selfTeam = new Team("team-self");
             selfTeam.AddFighter(fighter1);
             selfTeam.AddFighter(fighter2);
+            selfTeam.AddFighter(fighter3);
 
             Rule rule = new RestRule();
             Action action = new RestAction(new List<object>() { fighter1 });
@@ -165,6 +173,12 @@ namespace SimpleCombatSystem.Test
 
             // Invalid | + Someone rested already
             fighter2.AddStatus(FighterStatus.Rested);
+            Assert.False(rule.IsSatisfied(action));
+            Assert.AreEqual(expectedViolations, rule.GetViolations(action).Count);
+            expectedViolations += 1;
+
+            // Invalid | + Everybody rests
+            fighter3.AddStatus(FighterStatus.Dead);
             Assert.False(rule.IsSatisfied(action));
             Assert.AreEqual(expectedViolations, rule.GetViolations(action).Count);
         }

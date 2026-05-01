@@ -8,7 +8,7 @@ namespace SimpleCombatSystem
         {
             if (!team.HasStatus(TeamStatus.InTurn))
             {
-                return new (){new NotTeamTurnViolation()};
+                return new() { new NotTeamTurnViolation() };
             }
             return new();
         }
@@ -22,7 +22,7 @@ namespace SimpleCombatSystem
                 teamB.HasStatus(TeamStatus.Defeated)
             )
             {
-                return new(){new FightOverViolation()};
+                return new() { new FightOverViolation() };
             }
             return new();
         }
@@ -31,7 +31,7 @@ namespace SimpleCombatSystem
         {
             if (fighter.HasStatus(FighterStatus.Dead))
             {
-                return new(){new AlreadyDeadViolation()};
+                return new() { new AlreadyDeadViolation() };
             }
             return new();
         }
@@ -75,6 +75,32 @@ namespace SimpleCombatSystem
             if (fighterA.GetTeam() == fighterB.GetTeam())
             {
                 return new() { new SameTeamViolation() };
+            }
+            return new();
+        }
+
+        public static List<Violation> IsFighterResting(IFighter fighter)
+        {
+            if (fighter.HasStatus(FighterStatus.Rested))
+            {
+                return new() { new FighterIsRestingViolation() };
+            }
+            return new();
+        }
+
+        public static List<Violation> AreThereTwoVigilantFighters(ITeam team)
+        {
+            int vigilantCount = 0;
+            foreach (IFighter fighter in team.GetFighters())
+            {
+                if (!fighter.HasStatus(FighterStatus.Rested) && !fighter.HasStatus(FighterStatus.Dead))
+                {
+                    vigilantCount++;
+                }
+            }
+            if (vigilantCount < 2)
+            {
+                return new() { new NoVigilantFighterInTeam() };
             }
             return new();
         }
