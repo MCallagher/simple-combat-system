@@ -38,9 +38,22 @@ namespace SimpleCombatSystem
 
         public static List<Violation> CanFighterAct(IFighter fighter)
         {
-            if (fighter.HasStatus(FighterStatus.Attacked))
+            if (fighter.HasStatus(FighterStatus.Attacked) || fighter.HasStatus(FighterStatus.Rested))
             {
                 return new() { new CannotActViolation() };
+            }
+            return new();
+        }
+
+
+        public static List<Violation> IsAnyoneRested(ITeam team)
+        {
+            foreach (var fighter in team.GetFighters())
+            {
+                if (fighter.HasStatus(FighterStatus.Rested))
+                {
+                    return new() { new TeamAlreadyRestedViolation() };
+                }
             }
             return new();
         }

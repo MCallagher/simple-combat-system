@@ -100,5 +100,12 @@ namespace SimpleCombatSystem
         {
             return new HitPoints(3);
         }
+
+        // ICanRest
+        public void Rest()
+        {
+            AddStatus(FighterStatus.Rested);
+            GetHealed(new HitPoints(1));
+        }
     }
 }
