@@ -132,10 +132,12 @@ namespace SimpleCombatSystem.Test
             Fighter fighter1 = new Fighter("fighter1", new HitPoints(10));
             Fighter fighter2 = new Fighter("fighter2", new HitPoints(10));
             Fighter fighter3 = new Fighter("fighter3", new HitPoints(10));
+            Fighter fighter4 = new Fighter("fighter4", new HitPoints(10));
             Team selfTeam = new Team("team-self");
             selfTeam.AddFighter(fighter1);
             selfTeam.AddFighter(fighter2);
             selfTeam.AddFighter(fighter3);
+            selfTeam.AddFighter(fighter4);
 
             Rule rule = new RestRule();
             Action action = new RestAction(new List<object>() { fighter1 });
