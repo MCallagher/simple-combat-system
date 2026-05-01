@@ -48,5 +48,17 @@ namespace SimpleCombatSystem.Test
             Assert.AreEqual("test-team-1", action.team1.GetName());
             Assert.AreEqual("test-team-2", action.team2.GetName());
         }
+
+        [Test]
+        public void RestActionBuildTest()
+        {
+            RestAction action = new(new List<object>(){
+            new Fighter("test-fighter-1", new HitPoints(10))
+        });
+
+            Assert.AreEqual(ActionType.Rest, action.GetActionType());
+            Assert.AreEqual(ActionMode.Fighter1x, action.GetMode());
+            Assert.AreEqual("test-fighter-1", action.fighter1.GetName());
+        }
     }
 }

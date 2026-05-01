@@ -5,6 +5,7 @@ namespace SimpleCombatSystem
     {
         Attack,
         PassTurn,
-        StartTurn
+        StartTurn,
+        Rest,
     }
 }

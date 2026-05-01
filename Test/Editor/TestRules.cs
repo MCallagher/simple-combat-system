@@ -20,8 +20,8 @@ namespace SimpleCombatSystem.Test
             defTeam.AddFighter(def);
 
             Rule rule = new AttackRule();
-            SimpleCombatSystem.Action action = new AttackAction(new List<object>() { atk, def });
-            SimpleCombatSystem.Action action2 = new AttackAction(new List<object>() { atk, atk });
+            Action action = new AttackAction(new List<object>() { atk, def });
+            Action action2 = new AttackAction(new List<object>() { atk, atk });
 
             // Valid
             atkTeam.AddStatus(TeamStatus.InTurn);
@@ -62,6 +62,12 @@ namespace SimpleCombatSystem.Test
             atk.AddStatus(FighterStatus.Attacked);
             Assert.False(rule.IsSatisfied(action));
             Assert.AreEqual(expectedViolations, rule.GetViolations(action).Count);
+            expectedViolations += 1;
+
+            // Invalid | + Resting defender
+            def.AddStatus(FighterStatus.Rested);
+            Assert.False(rule.IsSatisfied(action));
+            Assert.AreEqual(expectedViolations, rule.GetViolations(action).Count);
         }
 
         [Test]
@@ -71,7 +77,7 @@ namespace SimpleCombatSystem.Test
             Team otherTeam = new Team("oth-team");
 
             Rule rule = new PassTurnRule();
-            SimpleCombatSystem.Action action = new PassTurnAction(new List<object>() { currentTeam, otherTeam });
+            Action action = new PassTurnAction(new List<object>() { currentTeam, otherTeam });
 
             // Valid
             currentTeam.AddStatus(TeamStatus.InTurn);
@@ -99,7 +105,7 @@ namespace SimpleCombatSystem.Test
             Team otherTeam = new Team("oth-team");
 
             Rule rule = new StartTurnRule();
-            SimpleCombatSystem.Action action = new StartTurnAction(new List<object>() { currentTeam, otherTeam });
+            Action action = new StartTurnAction(new List<object>() { currentTeam, otherTeam });
 
             // Valid
             Assert.True(rule.IsSatisfied(action));
@@ -115,6 +121,66 @@ namespace SimpleCombatSystem.Test
 
             // Invalid | + Fight over
             currentTeam.AddStatus(TeamStatus.Winner);
+            Assert.False(rule.IsSatisfied(action));
+            Assert.AreEqual(expectedViolations, rule.GetViolations(action).Count);
+        }
+
+        
+        [Test]
+        public void RestRuleTest()
+        {
+            Fighter fighter1 = new Fighter("fighter1", new HitPoints(10));
+            Fighter fighter2 = new Fighter("fighter2", new HitPoints(10));
+            Fighter fighter3 = new Fighter("fighter3", new HitPoints(10));
+            Fighter fighter4 = new Fighter("fighter4", new HitPoints(10));
+            Team selfTeam = new Team("team-self");
+            selfTeam.AddFighter(fighter1);
+            selfTeam.AddFighter(fighter2);
+            selfTeam.AddFighter(fighter3);
+            selfTeam.AddFighter(fighter4);
+
+            Rule rule = new RestRule();
+            Action action = new RestAction(new List<object>() { fighter1 });
+
+            // Valid
+            selfTeam.AddStatus(TeamStatus.InTurn);
+            Assert.True(rule.IsSatisfied(action));
+            Assert.IsEmpty(rule.GetViolations(action));
+
+            int expectedViolations = 1;
+
+            // Invalid | + Not in turn
+            selfTeam.RemoveStatus(TeamStatus.InTurn);
+            Assert.False(rule.IsSatisfied(action));
+            Assert.AreEqual(expectedViolations, rule.GetViolations(action).Count);
+            expectedViolations += 1;
+
+            // Invalid | + Fight over
+            selfTeam.AddStatus(TeamStatus.Winner);
+            Assert.False(rule.IsSatisfied(action));
+            Assert.AreEqual(expectedViolations, rule.GetViolations(action).Count);
+            expectedViolations += 1;
+
+            // Invalid | + Already dead
+            fighter1.AddStatus(FighterStatus.Dead);
+            Assert.False(rule.IsSatisfied(action));
+            Assert.AreEqual(expectedViolations, rule.GetViolations(action).Count);
+            expectedViolations += 1;
+
+            // Invalid | + Cannot act
+            fighter1.AddStatus(FighterStatus.Attacked);
+            Assert.False(rule.IsSatisfied(action));
+            Assert.AreEqual(expectedViolations, rule.GetViolations(action).Count);
+            expectedViolations += 1;
+
+            // Invalid | + Someone rested already
+            fighter2.AddStatus(FighterStatus.Rested);
+            Assert.False(rule.IsSatisfied(action));
+            Assert.AreEqual(expectedViolations, rule.GetViolations(action).Count);
+            expectedViolations += 1;
+
+            // Invalid | + Everybody rests
+            fighter3.AddStatus(FighterStatus.Dead);
             Assert.False(rule.IsSatisfied(action));
             Assert.AreEqual(expectedViolations, rule.GetViolations(action).Count);
         }

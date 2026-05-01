@@ -16,7 +16,13 @@ namespace SimpleCombatSystem
             current.RemoveStatus(TeamStatus.InTurn);
             other.AddStatus(TeamStatus.InTurn);
 
-            // Update status
+            // Update status at turn start
+            foreach (IFighter fighter in other.GetFighters())
+            {
+                fighter.RemoveStatus(FighterStatus.Rested);
+            }
+
+            // Update status at turn end
             foreach (IFighter fighter in current.GetFighters())
             {
                 fighter.RemoveStatus(FighterStatus.Attacked);
