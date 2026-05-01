@@ -33,6 +33,7 @@ namespace SimpleCombatSystem.Test
             zetaTeam = new Team("zeta", new List<IFighter>() { zFighter, wFighter });
             ruleset = new Ruleset(new List<Rule>(){
            new AttackRule(),
+           new RestRule(),
            new StartTurnRule(),
            new PassTurnRule()
         });
@@ -43,7 +44,7 @@ namespace SimpleCombatSystem.Test
         [Test]
         public void AttackTest()
         {
-            SimpleCombatSystem.Action action = new AttackAction(new List<object>() { aFighter, zFighter });
+            Action action = new AttackAction(new List<object>() { aFighter, zFighter });
             Assert.True(cs.IsValidAction(action));
 
             cs.PerformAction(action);
@@ -54,7 +55,7 @@ namespace SimpleCombatSystem.Test
         [Test]
         public void AttackAndKillTest()
         {
-            SimpleCombatSystem.Action action = new AttackAction(new List<object>() { aFighter, wFighter });
+            Action action = new AttackAction(new List<object>() { aFighter, wFighter });
             Assert.True(cs.IsValidAction(action));
 
             cs.PerformAction(action);
@@ -77,7 +78,7 @@ namespace SimpleCombatSystem.Test
         [Test]
         public void PassTurnTest()
         {
-            SimpleCombatSystem.Action action = new PassTurnAction(new List<object>() { alphaTeam, zetaTeam });
+            Action action = new PassTurnAction(new List<object>() { alphaTeam, zetaTeam });
             Assert.True(cs.IsValidAction(action));
 
             cs.PerformAction(action);
@@ -89,12 +90,24 @@ namespace SimpleCombatSystem.Test
         public void StartTurnTest()
         {
             alphaTeam.RemoveStatus(TeamStatus.InTurn);
-            SimpleCombatSystem.Action action = new StartTurnAction(new List<object>() { alphaTeam, zetaTeam });
+            Action action = new StartTurnAction(new List<object>() { alphaTeam, zetaTeam });
             Assert.True(cs.IsValidAction(action));
 
             cs.PerformAction(action);
             Assert.True(alphaTeam.HasStatus(TeamStatus.InTurn));
             Assert.False(zetaTeam.HasStatus(TeamStatus.InTurn));
+        }
+
+        [Test]
+        public void RestTest()
+        {
+            aFighter.GetHarmed(new HitPoints(1));
+            Action action = new RestAction(new List<object>() { aFighter });
+            Assert.True(cs.IsValidAction(action));
+            
+            cs.PerformAction(action);
+            Assert.True(aFighter.HasStatus(FighterStatus.Rested));
+            Assert.AreEqual(15, aFighter.GetHealth().CumulativeValue());
         }
     }
 }
